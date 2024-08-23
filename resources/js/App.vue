@@ -1,0 +1,50 @@
+<script>
+</script>
+
+<template>
+    <header>
+        <nav class="navbar navbar-expand-lg p-1 mb-5">
+            <div class="container d-flex justify-content-between ">
+                <div class="d-flex align-items-center">
+                    <a href="/" class="logo text-gradient">Simple Blog</a>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <RouterLink to="/" class="nav-link">Home</RouterLink>
+                    <RouterLink to="projects" class="nav-link">Projects</RouterLink>
+                    <RouterLink to="auth" class="px-2 fs-6 text-light bg-primary rounded-1">Login</RouterLink>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <RouterView/>
+</template>
+
+<style scoped>
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: 15px;
+    color: rgb(107 114 128);
+}
+
+.nav-link:hover {
+    color: rgb(55 65 81);
+}
+
+.logo {
+    color: blue;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.text-gradient {
+    background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+</style>
