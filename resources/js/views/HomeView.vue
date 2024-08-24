@@ -20,7 +20,7 @@
     <div class="col-xxl-7">
       <div class="d-flex justify-content-center mt-5 mt-xxl-0">
         <div class="profile bg-gradient-primary-to-secondary d-flex justify-content-center align-items-end">
-            <img class="profile-img" src="../assets/profile.png">
+            <img class="profile-img" src="@/assets/profile.png">
           </div>
       </div>
     </div>

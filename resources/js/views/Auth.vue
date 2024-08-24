@@ -21,7 +21,7 @@ export default {
 </script>
 <template>
   <div>
-      <Login v-if="isLogin" @toggleRegister="toggleLogin"></Login>
-      <Registration v-if="!isLogin" @toggleLogin="toggleLogin"></Registration>
+    <Login v-if="isLogin" @toggleRegister="toggleLogin"></Login>
+    <Registration v-if="!isLogin" @toggleLogin="toggleLogin"></Registration>
   </div>
 </template>

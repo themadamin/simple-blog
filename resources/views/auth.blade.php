@@ -1,5 +1,5 @@
 <x-layout>
     <x-slot:title>
-        Dashboard
+        Authenticate
     </x-slot:title>
 </x-layout>

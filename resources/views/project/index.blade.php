@@ -1,5 +1,5 @@
 <x-layout>
     <x-slot:title>
-        Dashboard
+        Projects
     </x-slot:title>
 </x-layout>
