@@ -16,8 +16,12 @@ export default {
                     <span class="text-gradient">Projects</span>
                 </h1>
             </div>
-            <div class="row gx-5 justify-content-center">
 
+            <div class="mb-5 d-flex justify-content-center">
+                <RouterLink :to="{name: 'projects.create'}" class="btn btn-outline-primary px-5 py-3">Create</RouterLink>
+            </div>
+
+            <div class="row gx-5 justify-content-center">
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
                     <card title="Project Number 1"
                           body="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis cumque debitis,
@@ -32,12 +36,12 @@ export default {
         </div>
     </section>
 </template>
-<style>
+
+<style scoped>
 
 .text-gradient {
     background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 </style>

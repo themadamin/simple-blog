@@ -7,12 +7,13 @@
         <nav class="navbar navbar-expand-lg p-1 mb-5">
             <div class="container d-flex justify-content-between ">
                 <div class="d-flex align-items-center">
-                    <a href="/" class="logo text-gradient">Simple Blog</a>
+                    <RouterLink :to="{name: 'home'}" class="logo text-gradient">Simple Blog</RouterLink>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                    <RouterLink to="/" class="nav-link">Home</RouterLink>
-                    <a href="/projects" class="nav-link">Projects</a>
-                    <a href="/auth" class="px-2 fs-6 text-light bg-primary rounded-1">Login</a>
+                    <RouterLink :to="{name: 'home'}" class="nav-link">Home</RouterLink>
+                    <RouterLink :to="{name: 'categories.index'}" class="nav-link">Categories</RouterLink>
+                    <RouterLink :to="{name: 'projects.index'}" class="nav-link">Projects</RouterLink>
+                    <RouterLink :to="{name: 'auth'}" class="px-2 fs-6 text-light bg-primary rounded-1">Login</RouterLink>
                 </div>
             </div>
         </nav>
