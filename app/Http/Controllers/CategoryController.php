@@ -10,16 +10,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::query()->paginate(5);
+        $categories = Category::query()->get();
 
-        return $this->paginationResponse($categories);
+        return $this->resultResponse(CategoryResource::collection($categories));
     }
 
     public function store(CategoryRequest $request)
     {
         $validated = $request->validated();
 
-        Category::create($validated);
+        Category::create([
+            'name' => $validated['name'],
+        ]);
 
         return $this->successResponse('Category created');
     }

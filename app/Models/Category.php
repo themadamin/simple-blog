@@ -10,6 +10,15 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'thumbnail'];
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'date:Y-m-d',
+            'updated_at' => 'date:Y-m-d'
+        ];
+    }
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
