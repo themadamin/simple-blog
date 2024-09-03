@@ -5,7 +5,7 @@ import ProjectIndex from '@/views/Projects/Index.vue';
 import ProjectCreate from '@/views/Projects/Create.vue';
 import ProjectEdit from '@/views/Projects/Edit.vue';
 import CategoryIndex from '@/views/Categories/Index.vue';
-import CategoryCreate from '@/views/Categories/Create.vue';
+import CategoryUpdate from '@/components/category/Update.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +16,7 @@ const router = createRouter({
         {path: '/projects/create', name: 'projects.create', component: ProjectCreate},
         {path: '/projects/edit', name: 'projects.edit', component: ProjectEdit},
         {path: '/categories', name: 'categories.index', component: CategoryIndex},
-        {path: '/categories/create', name: 'categories.create', component: CategoryCreate}
+        {path: '/categories/:id', name: 'categories.update', component: CategoryUpdate}
     ]
 })
 

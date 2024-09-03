@@ -23,14 +23,12 @@ class LoginController extends Controller
         if (!$user){
             throw new Exception('User not found');
         }
-
-        if ($user->password !== Hash::make($validated['password'])){
+        if (!Hash::check($validated['password'], $user->password)){
             throw new Exception('Wrong password');
         }
 
-//        $token = $user->createToken('auth_token')->plainTextToken;
-        Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']]);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-//        return $this->resultResponse(['token' => $token]);
+        return $this->resultResponse(['user' => $user, 'token' => $token]);
     }
 }
