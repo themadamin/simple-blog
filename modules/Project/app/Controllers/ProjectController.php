@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\Project\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
-use App\Models\Project;
+use Modules\Project\Models\Project;
 
 class ProjectController extends Controller
 {

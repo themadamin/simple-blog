@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Project\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Category\Models\Category;
+use Modules\Project\Database\Factories\ProjectFactory;
 
 class Project extends Model
 {
     use HasFactory;
 
+    protected static function newFactory(): ProjectFactory
+    {
+        return ProjectFactory::new();
+    }
     protected $fillable = [
         'category_id',
         'title',

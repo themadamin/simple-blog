@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Modules\User\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
-use Auth;
 use Exception;
 use Hash;
+use Modules\User\Models\User;
 
 class LoginController extends Controller
 {

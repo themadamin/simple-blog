@@ -1,16 +1,14 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Project\Database\Factories;
 
-use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Project\Models\Project;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
 class ProjectFactory extends Factory
 {
+    protected $model = Project::class;
     /**
      * Define the model's default state.
      *
@@ -18,10 +16,8 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $category = Category::query()->inRandomOrder()->first();
-
         return [
-            'category_id' => $category->id,
+            'category_id' => rand(1,10),
             'title' => $this->faker->text(),
             'body' => $this->faker->paragraph(),
             'published_at' => $this->faker->dateTimeBetween(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()),
