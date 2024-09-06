@@ -85,9 +85,9 @@ export default {
         ...mapActions('category', ['create', 'update', 'delete']),
 
         handleSubmit() {
-            const formData = {
+            const formData = new FormData({
                 name: this.category.name,
-            }
+            })
             if (this.category.thumbnail) {
                 formData.append('thumbnail', this.category.thumbnail);
             }
@@ -117,6 +117,7 @@ export default {
         },
 
         handleFileUpload(event) {
+            new FormData()
             this.category.thumbnail = event.target.files[0];
         },
 
