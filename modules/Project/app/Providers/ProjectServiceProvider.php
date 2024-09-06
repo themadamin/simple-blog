@@ -16,4 +16,9 @@ class ProjectServiceProvider extends ModuleServiceProvider
     {
         return (__DIR__. "/../../database/migrations");
     }
+
+    protected function getDirectoryName(): string
+    {
+        return __DIR__;
+    }
 }

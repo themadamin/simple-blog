@@ -3,26 +3,26 @@
 namespace Modules\Project\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProjectRequest;
-use App\Http\Resources\ProjectResource;
 use Modules\Project\Models\Project;
+use Modules\Project\Requests\ProjectRequest;
+use Modules\Project\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::query()->paginate(5);
+        $projects = Project::query()->get();
 
-        return $this->paginationResponse($projects);
+        return $this->resultResponse(ProjectResource::collection($projects));
     }
 
     public function store(ProjectRequest $request)
     {
         $validated = $request->validated();
 
-        Project::create($validated);
+        $project = Project::create($validated);
 
-        return $this->successResponse('Project created');
+        return $this->resultResponse(ProjectResource::make($project));
     }
 
     public function show(Project $project)
@@ -36,7 +36,7 @@ class ProjectController extends Controller
 
         $project->update($validated);
 
-        return $this->successResponse('Project updated');
+        return $this->resultResponse(ProjectResource::make($project));
     }
 
     public function destroy(Project $project)

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace Modules\Category\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,8 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'image' => $this->image,
-            'published_at' => $this->published_at
+            'name' => $this->name,
+            'thumbnail' => $this->thumbnail ? asset($this->thumbnail) : null
         ];
     }
 }

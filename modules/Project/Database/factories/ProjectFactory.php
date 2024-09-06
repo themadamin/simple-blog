@@ -18,7 +18,7 @@ class ProjectFactory extends Factory
     {
         return [
             'category_id' => rand(1,10),
-            'title' => $this->faker->text(),
+            'title' => $this->faker->text(20),
             'body' => $this->faker->paragraph(),
             'published_at' => $this->faker->dateTimeBetween(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()),
         ];

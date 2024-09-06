@@ -11,7 +11,7 @@
 <body>
 <header/>
 <div id="app">
-{{$slot}}
+    {{$slot}}
 </div>
 @vite('resources/js/app.js')
 </body>

@@ -1,4 +1,3 @@
-
 <template>
     <div class="popup-form">
         <div class="overlay" @click="closeForm"></div>

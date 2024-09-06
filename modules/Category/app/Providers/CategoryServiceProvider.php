@@ -16,4 +16,9 @@ class CategoryServiceProvider extends ModuleServiceProvider
     {
         return (__DIR__ . '/../../Database/migrations');
     }
+
+    protected function getDirectoryName(): string
+    {
+        return __DIR__;
+    }
 }

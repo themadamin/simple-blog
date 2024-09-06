@@ -3,10 +3,10 @@
 namespace Modules\User\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
 use Exception;
 use Hash;
 use Modules\User\Models\User;
+use Modules\User\Requests\Auth\LoginRequest;
 
 class LoginController extends Controller
 {

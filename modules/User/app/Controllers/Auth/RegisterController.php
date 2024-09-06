@@ -3,9 +3,9 @@
 namespace Modules\User\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RegistrationRequest;
 use Illuminate\Support\Facades\Hash;
 use Modules\User\Models\User;
+use Modules\User\Requests\Auth\RegistrationRequest;
 
 class RegisterController extends Controller
 {

@@ -2,7 +2,6 @@
     <section class="pt-8 pt-md-9">
         <div class="container" :class="{'blur-background': showForm}">
 
-
             <!-- Categories -->
             <div class="row mt-6">
                 <div class="d-flex justify-content-between col-12 mb-4">
@@ -12,19 +11,10 @@
                     <button @click="createForm" class="btn btn-primary">Create</button>
                 </div>
 
-                <!-- Category -->
-<!--
-                RouterLink :to="{path: `/categories/${category.id}`}"
--->
                 <div class="col-md-3 mb-4 btn" v-for="category in list" :key="category.id" @click="updateForm(category)">
                     <a class="card align-items-center text-decoration-none border-0 hover-lift-light py-4">
                         <span class="icon-circle icon-circle-lg bg-pastel-primary text-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"
-                              viewBox="0 0 512 512"><title>ionicons-v5-c</title><polyline
-                             points="352 144 464 144 464 256"
-                             style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></polyline><path
-                             d="M48,368,169.37,246.63a32,32,0,0,1,45.26,0l50.74,50.74a32,32,0,0,0,45.26,0L448,160"
-                             style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path></svg>
+                            <img :src="getThumbnail(category)" alt=""  class="rounded-5 h-100 w-100">
                         </span>
                         <span class="text-dark mt-3">
                           {{category.name}}
@@ -44,6 +34,7 @@
 <script>
 import CategoryForm from "@/components/category/CategoryForm.vue";
 import {mapActions, mapState} from "vuex";
+import defaultThumbnail from "@/assets/laravel.svg"
 
 export default {
     computed: {
@@ -78,6 +69,12 @@ export default {
             this.showForm = false;
             this.currentCategory = null;
             this.getCategories();
+        },
+        getThumbnail(category){
+            if (!category.thumbnail){
+                return defaultThumbnail;
+            }
+            return category.thumbnail;
         }
     },
     created() {
