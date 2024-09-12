@@ -1,3 +1,5 @@
+
+const url = '/projects';
 export default {
     namespaced: true,
     state: {
@@ -8,47 +10,27 @@ export default {
         list: []
     },
     mutations: {
-        setList(state, value) {
-            state.list = value;
-        },
         setProjectValue(state, {field, value}) {
             state[field] = value;
         }
     },
     actions: {
         async index({commit}) {
-            return axios.get('/projects')
+            return await axios.get(url)
                 .then(response => {
                     const list = response.data;
 
-                    commit('setList', list);
-
-                })
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+                    commit('setProjectValue', {field: 'list', value: list});
+                });
         },
         async create({commit}, data) {
-            return axios.post('/projects', data)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.post(url, data)
         },
         async update({commit}, {id, data}) {
-            return axios.put(`/projects/${id}`, data)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.post(`${url}/${id}`, data)
         },
         async delete({commit}, id) {
-            return axios.delete(`/projects/${id}`)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.delete(`${url}/${id}`)
         }
     }
 }

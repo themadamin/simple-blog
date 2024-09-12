@@ -10,7 +10,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected function boot(): void
     {
         $this->loadMigrationsFrom($this->getMigrationsPath());
-        $this->loadRoutesFrom($this->getDirectoryName().'/../routes/api.php');
+        $this->loadRoutesFrom($this->getDirectoryName().'/../../routes/api.php');
     }
 
 

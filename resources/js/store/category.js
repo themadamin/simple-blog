@@ -1,3 +1,5 @@
+
+const url = '/categories';
 export default {
     namespaced: true,
     state: {
@@ -6,47 +8,27 @@ export default {
         list: []
     },
     mutations: {
-        setList(state, value){
-            state.list = value;
-        },
         setCategoryValue(state, { field, value }) {
             state[field] = value;
         }
     },
     actions: {
-        async index({commit}){
-            return axios.get('/categories')
+        async index({commit, state}){
+            await axios.get(url)
                 .then(response => {
                     const list = response.data;
 
-                    commit('setList', list);
-
-                })
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+                    commit('setCategoryValue', {field: 'list', value: list});
+                }).catch((error) => {throw error})
         },
         async create({commit},data){
-            return axios.post('/categories', data)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.post(url, data).catch((error) => {throw error});
         },
         async update({commit}, {id, data}){
-            return axios.put(`/categories/${id}`, data)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.post(`${url}/${id}`, data);
         },
         async delete({commit}, id){
-            return axios.delete(`/categories/${id}`)
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
+            return axios.delete(`${url}/${id}`);
         }
     }
 }

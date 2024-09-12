@@ -5,6 +5,7 @@ namespace Modules\User\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Exception;
 use Hash;
+use Illuminate\Http\JsonResponse;
 use Modules\User\Models\User;
 use Modules\User\Requests\Auth\LoginRequest;
 
@@ -13,7 +14,7 @@ class LoginController extends Controller
     /**
      * @throws Exception
      */
-    public function __invoke(LoginRequest $request)
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         $validated = $request->validated();
 

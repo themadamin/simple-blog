@@ -6,7 +6,8 @@
                     <div class="card shadow-lg card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                            <form class="d-flex flex-column" @submit.prevent="register">
+                            <DynamicForm :schema="formSchema" submit-text="Register" @onSubmit="register"/>
+<!--                            <form class="d-flex flex-column" @submit.prevent="register">
 
                                 <div class="row">
                                     <div class="mb-2">
@@ -63,7 +64,7 @@
                                            value="Submit"/>
                                 </div>
 
-                            </form>
+                            </form>-->
 
                             <div class="mt-2 d-flex align-items-center">
                                 <span>Already have account ?</span>
@@ -77,49 +78,57 @@
     </section>
 </template>
 <script>
-import {mapActions, mapMutations, mapState} from "vuex";
+import {mapActions} from "vuex";
+import DynamicForm from "@/components/DynamicForm.vue";
+import * as Yup from "yup";
 
 export default {
-    computed: {
-        ...mapState('auth', ['form']),
-        name: {
-            get() {
-                return this.form.name;
-            },
-            set(value) {
-                return this.setFormField({field: 'name', value});
-            }
-        },
-        email: {
-            get() {
-                return this.form.email;
-            },
-            set(value) {
-                return this.setFormField({field: 'email', value});
-            }
-        },
-        password: {
-            get() {
-                return this.form.password;
-            },
-            set(value) {
-                return this.setFormField({field: 'password', value})
-            }
-        },
-        password_confirmation: {
-            get(){
-                return this.form.password_confirmation;
-            },
-            set(value){
-                return this.setFormField({field: 'password_confirmation', value});
+    components: {DynamicForm},
+    data(){
+        return{
+            formSchema: {
+                fields: [
+                    {
+                        label: 'Name',
+                        name: 'name',
+                        as: 'input',
+                        rules: Yup.string().required().min(5)
+                    },
+                    {
+                        label: 'Email Address',
+                        name: 'email',
+                        as: 'input',
+                        rules: Yup.string().required().email()
+                    },
+                    {
+                        label: 'Password',
+                        name: 'password',
+                        as: 'input',
+                        type: 'password',
+                        rules: Yup.string().min(6).required()
+                    },
+                    {
+                        label: 'Password confirmation',
+                        name: 'password_confirmation',
+                        as: 'input',
+                        type: 'password',
+                        rules: Yup.string().required().min(6)
+                    },
+                ]
+
             }
         }
     },
     methods: {
-        ...mapMutations('auth', ['setFormField']),
         ...mapActions('auth', ['registration']),
-        register() {
-            this.registration().then(() => {
+        register(data) {
+            const formData = new FormData();
+            formData.append('name', data.name);
+            formData.append('email', data.email);
+            formData.append('password', data.password);
+            formData.append('password_confirmation', data.password_confirmation);
+
+            this.registration(formData).then(() => {
                 this.$router.push({name: 'home'})
             })
         },

@@ -20,7 +20,8 @@ class ProjectResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'image' => $this->image,
-            'published_at' => $this->published_at
+            'published_at' => $this->published_at,
+            'thumbnail' => $this->thumbnail ? asset($this->thumbnail) : null
         ];
     }
 }

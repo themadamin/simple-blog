@@ -7,78 +7,15 @@
                     <div class="card shadow-lg card-registration">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">
-                                {{ isUpdate ? 'Update' : 'Create' }} Category
+                                 {{formTitle()}}Category
                             </h3>
-                            <form class="d-flex flex-column"  @submit.prevent="handleSubmit">
-                                <div class="row">
-                                    <div class="mb-2">
-                                        <select class="form-select" @change="setLocalField('category_id', $event.target.value)">
-                                            <option v-for="category in list" :key="category.id"
-                                                    :value="category.id"
-                                            >{{category.name}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="title">Title</label>
-                                            <input
-                                                type="text"
-                                                :value="project.title"
-                                                @input="setLocalField('title', $event.target.value)"
-                                                id="title"
-                                                class="form-control form-control-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="body">Body</label>
-                                            <input
-                                                type="text"
-                                                :value="project.body"
-                                                @input="setLocalField('body', $event.target.value)"
-                                                id="body"
-                                                class="form-control form-control-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="thumbnail">Image</label>
-                                            <input
-                                                type="file"
-                                                @change="handleFileUpload"
-                                                id="thumbnail"
-                                                class="form-control form-control-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-end">
-                                    <div v-show="isUpdate">
-                                        <button class="btn btn-lg btn-danger" @click="deleteProject(this.projectData.id)">Delete</button>
-                                    </div>
-                                    <div class="mt-4 pt-2">
-                                        <input
-                                            data-mdb-ripple-init
-                                            class="btn btn-primary btn-lg"
-                                            type="submit"
-                                            :value="isUpdate ? 'Update' : 'Create'"
-                                        />
-                                    </div>
-                                </div>
-                            </form>
-
+                            <DynamicForm :schema="formSchema" :submit-text="formTitle()" @onSubmit="handleSubmit">
+                                <template v-slot:delete>
+                                    <button class="btn btn-danger" @click="deleteProject(this.projectData.id)">
+                                        Delete
+                                    </button>
+                                </template>
+                            </DynamicForm>
                         </div>
                     </div>
                 </div>
@@ -87,8 +24,11 @@
     </div>
 </template>
 <script>
-import {mapActions, mapState} from "vuex";
+import {mapActions} from "vuex";
+import DynamicForm from "@/components/DynamicForm.vue";
+import * as Yup from "yup";
 export default {
+    components: {DynamicForm},
     props: {
         projectData: {
             type: Object,
@@ -97,29 +37,62 @@ export default {
         isUpdate: {
             type: Boolean,
             default: false
+        },
+        categories: {
+            type: Array,
+            required: true
         }
-    },
-    computed: {
-        ...mapState('category', ['list']),
     },
     data() {
         return {
-            project: {...this.projectData},
-            categories: null,
+            formSchema: {
+                fields: [
+                    {
+                        label: 'Project title',
+                        name: 'title',
+                        as: 'input',
+                        value: this.projectData.title,
+                        rules: Yup.string().required()
+                    },
+                    {
+                        label: 'Project body',
+                        name: 'body',
+                        as: 'input',
+                        value: this.projectData.body,
+                        rules: Yup.string().required()
+                    },
+                    {
+                        label: 'Thumbnail',
+                        name: 'thumbnail',
+                        as: 'input',
+                        type: 'file',
+                    },
+                    {
+                        label: 'Categories',
+                        name: 'category_id',
+                        as: 'select',
+                        options: this.categories,
+                        rules: Yup.number().required()
+                    }
+                ]
+            }
         };
     },
     methods: {
         ...mapActions('project', ['create', 'update', 'delete']),
-        ...mapActions('category',['index']),
 
-        handleSubmit() {
-            const formData = {
-                category_id: this.project.category_id,
-                title: this.project.title,
-                body: this.project.body
+        handleSubmit(data) {
+            const formData = new FormData();
+                formData.append('category_id', data.category_id);
+                formData.append('title', data.title);
+                formData.append('body', data.body);
+
+            if (data.thumbnail) {
+                formData.append('thumbnail', data.thumbnail);
             }
 
             if (this.isUpdate) {
+                formData.append("_method", "PUT")
                 this.update({id: this.projectData.id, data: formData})
                     .then(() => {
                         this.closeForm();
@@ -137,22 +110,14 @@ export default {
             });
         },
 
-        setLocalField(field, value) {
-            this.project[field] = value;
-        },
-
-        handleFileUpload(event) {
-            this.project.thumbnail = event.target.files[0];
-        },
-
         closeForm() {
             this.$emit('closeForm');
             this.$router.push({name: 'projects.index'})
+        },
+        formTitle() {
+            return this.isUpdate ? 'Update' : 'Create';
         }
     },
-    created() {
-        this.index()
-    }
 }
 </script>
 <style scoped>

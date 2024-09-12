@@ -19,7 +19,7 @@ trait ApiResponseTrait
         ], Response::HTTP_OK);
     }
 
-    protected function resultResponse($response): JsonResource|JsonResponse
+    protected function resultResponse($response): JsonResponse
     {
         return response()->json($response, Response::HTTP_OK);
     }

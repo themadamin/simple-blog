@@ -27,8 +27,8 @@ export default {
 
     },
     actions: {
-        async login({commit, state}){
-            return axios.post('/auth/login', state.form)
+        async login({commit}, data){
+            return axios.post('/auth/login', data)
                 .then(response => {
                     const user = response.data.user
                     const token = response.data.token
@@ -42,7 +42,7 @@ export default {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error)
                     throw error;
                 });
         },
@@ -58,20 +58,12 @@ export default {
                     delete axios.defaults.headers.common['Authorization'];
                 })
                 .catch(error => {
-                    console.log(error);
                     throw error;
                 })
         },
 
-        async registration({commit, state}){
-            const userData = {
-                name: state.form.name,
-                email: state.form.email,
-                password: state.form.password,
-                password_confirmation: state.form.password_confirmation
-            }
-            console.log(userData);
-            return axios.post('/auth/registration', userData)
+        async registration({commit}, data){
+            return axios.post('/auth/registration', data)
                 .then(response => {
                     const token = response.data.token
                     const user = response.data.user
@@ -85,7 +77,6 @@ export default {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 })
                 .catch(error => {
-                    console.log(error);
                     throw error;
                 })
         }

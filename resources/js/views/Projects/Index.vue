@@ -9,16 +9,15 @@
 
             <div class="mb-5 d-flex justify-content-center">
                 <button @click="createForm" class="btn btn-outline-primary px-5 py-3 mx-2">Create</button>
-<!--                <input type="file" class="btn btn-outline-dark rounded px-5 py-3">-->
             </div>
 
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-11 col-xl-9 col-xxl-8">
-                    <card v-for="project in list"
+                    <Card v-for="project in projects"
                           :key="project.id"
                           :project="project" @click="updateForm(project)"
                           type="button"
-                    ></card>
+                    ></Card>
                 </div>
             </div>
         </div>
@@ -27,6 +26,7 @@
             @closeForm="closeForm"
             :isUpdate="isUpdate"
             :projectData="currentProject"
+            :categories="categories"
         ></ProjectForm>
     </section>
 </template>
@@ -37,13 +37,14 @@ import ProjectForm from "@/components/project/ProjectForm.vue";
 
 export default {
     computed: {
-        ...mapState('project', ['list'])
+        ...mapState('project', {projects: 'list'}),
+        ...mapState('category', {categories: 'list'}),
     },
     data(){
         return {
             showForm: false,
             isUpdate: false,
-            currentProject: null
+            currentProject: null,
         }
     },
     components: {
@@ -51,13 +52,11 @@ export default {
         Card
     },
     methods: {
-        ...mapActions('project', ['index']),
-        getProjects(){
-            this.index()
-        },
+        ...mapActions('project', {getProjects: 'index'}),
+        ...mapActions('category', {getCategories: 'index'}),
         createForm(){
             this.isUpdate = false;
-            this.currentProject = null;
+            this.currentProject = undefined;
             this.showForm = true;
         },
         updateForm(category){
@@ -73,6 +72,7 @@ export default {
     },
     created() {
         this.getProjects()
+        this.getCategories()
     }
 }
 </script>
