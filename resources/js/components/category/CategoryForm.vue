@@ -1,61 +1,21 @@
-
 <template>
     <div class="popup-form">
         <div class="overlay" @click="closeForm"></div>
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 w-50 col-xl-7">
-                    <div class="card shadow-lg card-registration" style="border-radius: 15px;">
+                    <div class="card shadow-lg card-registration">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">
-                                {{ isUpdate ? 'Update' : 'Create' }} Category
+                                {{ formText() }} Category
                             </h3>
-                            <form class="d-flex flex-column"  @submit.prevent="handleSubmit">
-
-                                <div class="row">
-                                    <div class="mb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="name">Name</label>
-                                            <input
-                                                type="text"
-                                                :value="category.name"
-                                                @input="setLocalField('name', $event.target.value)"
-                                                id="name"
-                                                class="form-control form-control-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="thumbnail">Image</label>
-                                            <input
-                                                type="file"
-                                                @change="handleFileUpload"
-                                                id="thumbnail"
-                                                class="form-control form-control-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-end">
-                                <div class="mt-4 pt-2">
-                                    <input
-                                        data-mdb-ripple-init
-                                        class="btn btn-primary btn-lg"
-                                        type="submit"
-                                        :value="isUpdate ? 'Update' : 'Create'"
-                                    />
-                                </div>
-                                    <div v-show="isUpdate">
-                                        <button class="btn btn-lg btn-danger" @click="deleteCategory(this.categoryData.id)">Delete</button>
-                                    </div>
-                                </div>
-                            </form>
-
+                            <DynamicForm :schema="formSchema" :submit-text="formText()" @onSubmit="handleSubmit">
+                                <template v-slot:delete>
+                                    <button class="btn btn-danger" @click="deleteCategory(this.categoryData.id)">
+                                        Delete
+                                    </button>
+                                </template>
+                            </DynamicForm>
                         </div>
                     </div>
                 </div>
@@ -65,12 +25,15 @@
 </template>
 <script>
 import {mapActions} from "vuex";
+import DynamicForm from "@/components/DynamicForm.vue";
+import * as Yup from "yup";
 
 export default {
+    components: {DynamicForm},
     props: {
         categoryData: {
             type: Object,
-            default: () => ({ id: null, name: '', thumbnail: null })
+            default: (() => ({id: null, name: null, thumbnail: null}))
         },
         isUpdate: {
             type: Boolean,
@@ -79,50 +42,60 @@ export default {
     },
     data() {
         return {
-            category: { ...this.categoryData }
+            formSchema: {
+                fields: [
+                    {
+                        label: 'Category name',
+                        name: 'name',
+                        as: 'input',
+                        value: this.categoryData.name,
+                        rules: Yup.string().required()
+                    },
+                    {
+                        label: 'Thumbnail',
+                        name: 'thumbnail',
+                        as: 'input',
+                        type: 'file',
+                    }
+                ]
+            }
         };
     },
     methods: {
         ...mapActions('category', ['create', 'update', 'delete']),
 
-        handleSubmit() {
-            const formData = {
-                name: this.category.name,
-            }
-            if (this.category.thumbnail) {
-                formData.append('thumbnail', this.category.thumbnail);
+        handleSubmit(data) {
+            const formData = new FormData();
+            formData.append('name', data.name);
+
+            if (data.thumbnail) {
+                formData.append('thumbnail', data.thumbnail);
             }
 
             if (this.isUpdate) {
-                this.update({ id: this.categoryData.id, data: formData }).then(() => {
+                formData.append("_method", "PUT")
+                this.update({id: this.categoryData.id, data: formData}).then(() => {
                     this.closeForm();
-                    this.$router.push({ name: 'categories.index' });
                 });
             } else {
                 this.create(formData).then(() => {
                     this.closeForm();
-                    this.$router.push({ name: 'categories.index' });
                 });
             }
         },
 
-        deleteCategory(id){
+        deleteCategory(id) {
             this.delete(id).then(() => {
                 this.closeForm();
-                this.$router.push({ name: 'categories.index' });
             });
-        },
-
-        setLocalField(field, value) {
-            this.category[field] = value;
-        },
-
-        handleFileUpload(event) {
-            this.category.thumbnail = event.target.files[0];
         },
 
         closeForm() {
             this.$emit('closeForm');
+            this.$router.push({name: 'categories.index'});
+        },
+        formText() {
+            return this.isUpdate ? 'Update' : 'Create';
         }
     }
 };

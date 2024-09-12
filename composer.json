@@ -22,7 +22,23 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\": "modules/",
+
+            "Modules\\Project\\": "modules/Project/app",
+            "Modules\\Project\\Database\\Factories\\": "modules/Project/Database/factories",
+            "Modules\\Project\\Database\\Seeders\\": "modules/Project/Database/seeders",
+            "Modules\\Project\\Routes\\": "modules/Project/routes",
+
+            "Modules\\Category\\": "modules/Category/app",
+            "Modules\\Category\\Database\\Seeders\\": "modules/Category/Database/seeders",
+            "Modules\\Category\\Database\\Factories\\": "modules/Category/Database/factories",
+            "Modules\\Category\\Routes\\": "modules/Category/routes",
+
+            "Modules\\User\\": "modules/User/app",
+            "Modules\\User\\Database\\Seeders\\": "modules/User/Database/seeders",
+            "Modules\\User\\Database\\Factories\\": "modules/User/Database/factories",
+            "Modules\\User\\Routes\\": "modules/User/routes"
         }
     },
     "autoload-dev": {
