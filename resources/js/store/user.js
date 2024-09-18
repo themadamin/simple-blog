@@ -1,14 +1,12 @@
+const url = '/users';
 
-const url = '/categories';
 export default {
     namespaced: true,
     state: {
-        name: {type: String, default: null},
-        thumbnail: null,
         list: []
     },
     mutations: {
-        setCategoryValue(state, { field, value }) {
+        setUserValue(state, { field, value }) {
             state[field] = value;
         }
     },
@@ -18,7 +16,7 @@ export default {
                 .then(response => {
                     const list = response.data;
 
-                    commit('setCategoryValue', {field: 'list', value: list});
+                    commit('setUserValue', {field: 'list', value: list});
                 }).catch((error) => {throw error})
         },
         async create({commit},data){

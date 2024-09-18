@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Models;
 
+use App\Traits\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +11,7 @@ use Modules\Project\Models\Project;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, HasThumbnail;
 
     protected static function newFactory(): CategoryFactory
     {

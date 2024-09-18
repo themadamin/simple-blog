@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <template>
   <div class="container px-1 py-5 d-flex justify-content-between">
     <div class="d-flex flex-column justify-content-center ">
@@ -26,32 +23,6 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-
-.bg-gradient-primary-to-secondary {
-  background: #1e30f3;
-  background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
-}
-
-.text-gradient {
-  background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.title-size {
-  font-size: 3.5em;
-}
-
-.profile {
-  height: 35vw;
-  width: 40vw;
-  border-radius: 5vw;
-  margin: 30px;
-}
-.profile .profile-img {
-  height: 40vw;
-}
-
-</style>
+<script>
+import '&/HomeView.scss'
+</script>

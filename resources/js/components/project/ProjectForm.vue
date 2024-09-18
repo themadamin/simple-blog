@@ -26,6 +26,7 @@
 <script>
 import {mapActions} from "vuex";
 import DynamicForm from "@/components/DynamicForm.vue";
+import "&/Projects/ProjectForm.scss";
 import * as Yup from "yup";
 export default {
     components: {DynamicForm},
@@ -120,22 +121,3 @@ export default {
     },
 }
 </script>
-<style scoped>
-.popup-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-</style>
