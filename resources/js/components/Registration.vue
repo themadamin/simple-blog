@@ -7,65 +7,6 @@
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
                             <DynamicForm :schema="formSchema" submit-text="Register" @onSubmit="register"/>
-<!--                            <form class="d-flex flex-column" @submit.prevent="register">
-
-                                <div class="row">
-                                    <div class="mb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="name">Name</label>
-                                            <input type="text" id="name" v-model="name"
-                                                   class="form-control form-control-lg"/>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2 pb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="email">Email</label>
-                                            <input type="email" id="email" v-model="email"
-                                                   class="form-control form-control-lg"/>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2 pb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="password">Password</label>
-                                            <input type="password" id="password" v-model="password"
-                                                   class="form-control form-control-lg"/>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-2 pb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="password_confirmation">Confirm
-                                                password</label>
-                                            <input type="password" id="password_confirmation"
-                                                   v-model="password_confirmation"
-                                                   class="form-control form-control-lg"/>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 pt-2">
-                                    <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit"
-                                           value="Submit"/>
-                                </div>
-
-                            </form>-->
-
                             <div class="mt-2 d-flex align-items-center">
                                 <span>Already have account ?</span>
                                 <button class="btn text-primary" @click="$emit('toggleLogin')">Login</button>
@@ -135,8 +76,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-
-</style>

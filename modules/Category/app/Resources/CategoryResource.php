@@ -17,7 +17,7 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'thumbnail' => $this->thumbnail ? asset($this->thumbnail) : null
+            'thumbnail' => $this->getFileUrl()
         ];
     }
 }

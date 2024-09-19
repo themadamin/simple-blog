@@ -1,31 +1,32 @@
 <template>
     <div class="popup-form">
         <div class="overlay" @click="closeForm"></div>
-        <div class="container py-5 h-100">
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="col-12 w-50 col-xl-7">
-                    <div class="card shadow-lg card-registration">
-                        <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">
-                                {{ formText() }} Category
-                            </h3>
-                            <DynamicForm :schema="formSchema" :submit-text="formText()" @onSubmit="handleSubmit">
-                                <template v-slot:delete>
-                                    <button class="btn btn-danger" @click="deleteCategory(this.categoryData.id)">
-                                        Delete
-                                    </button>
-                                </template>
-                            </DynamicForm>
+            <div class="container py-5 h-100">
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="col-12 w-50 col-xl-7">
+                        <div class="card shadow-lg card-registration">
+                            <div class="card-body p-4 p-md-5">
+                                <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">
+                                    {{ formText() }} Category
+                                </h3>
+                                <DynamicForm :schema="formSchema" :submit-text="formText()" @onSubmit="handleSubmit">
+                                    <template v-slot:delete>
+                                        <button class="btn btn-danger" @click="deleteCategory(this.categoryData.id)">
+                                            Delete
+                                        </button>
+                                    </template>
+                                </DynamicForm>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </template>
 <script>
 import {mapActions} from "vuex";
 import DynamicForm from "@/components/DynamicForm.vue";
+import '&/Category/CategoryForm.scss';
 import * as Yup from "yup";
 
 export default {
@@ -100,23 +101,5 @@ export default {
     }
 };
 </script>
-<style scoped>
-.popup-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
 
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-</style>
 

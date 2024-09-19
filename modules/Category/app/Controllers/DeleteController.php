@@ -11,6 +11,8 @@ class DeleteController extends Controller
 {
     public function __invoke(Category $category): JsonResponse
     {
+        $category->clearMediaCollection();
+
         $category->delete();
 
         return $this->successResponse('Category deleted');

@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Project\Resources;
+namespace Modules\User\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,9 @@ class ProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category_id' => $this->category_id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'published_at' => $this->published_at->format('Y-m-d'),
-            'thumbnail' => $this->getFileUrl()
+            'name' => $this->name,
+            'email' => $this->email,
+            'verified' => $this->email_verified_at
         ];
     }
 }

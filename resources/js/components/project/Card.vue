@@ -14,6 +14,7 @@
 
 <script>
 import defaultThumbnail from "@/assets/laravel.svg";
+import '&/Projects/ProjectCard.scss';
 
 export default {
     props: {
@@ -32,10 +33,4 @@ export default {
     }
 }
 </script>
-<style scoped>
 
-.card-img {
-    height: 400px;
-    width: 300px;
-}
-</style>

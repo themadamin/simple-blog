@@ -1,3 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.css';
+@import 'element-plus/dist/index.css';
+
+@import 'HomeView.scss';
+@import "Header.scss";
+
+@import "Projects/Index.scss";
+@import "Projects/ProjectCard.scss";
+@import "Projects/ProjectForm.scss";
+
+@import "Category/Index.scss";
+@import "Category/CategoryCard.scss";
+@import "Category/CategoryForm.scss";
 
 

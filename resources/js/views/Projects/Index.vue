@@ -34,6 +34,7 @@
 import Card from '@/components/project/Card.vue'
 import {mapActions, mapState} from "vuex";
 import ProjectForm from "@/components/project/ProjectForm.vue";
+import "&/Projects/Index.scss";
 
 export default {
     computed: {
@@ -76,17 +77,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-.text-gradient {
-    background: -webkit-linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.blur-background {
-    filter: blur(5px);
-    transition: filter 0.3s ease;
-}
-</style>
