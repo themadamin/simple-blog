@@ -83,8 +83,5 @@ export default {
 }
 </script>
 <style scoped>
-.blur-background {
-    filter: blur(5px);
-    transition: filter 0.3s ease;
-}
+
 </style>
