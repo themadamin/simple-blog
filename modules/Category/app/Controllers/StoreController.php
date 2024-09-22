@@ -18,10 +18,15 @@ class StoreController extends Controller
             'name' => $validated['name'],
         ]);
 
+        if (isset($validated['parent_id'])){
+            $parent = Category::find($validated['parent_id']);
+            $parent->appendNode($category);
+        }
+
         if ($request->hasFile('thumbnail')) {
             $category->uploadFile($request->file('thumbnail'))->toMediaCollection('category');
         }
 
-        return $this->resultResponse(CategoryResource::make($category));
+        return $this->resultResponse(CategoryResource::make($category->load('children')));
     }
 }

@@ -17,7 +17,8 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'thumbnail' => $this->getFileUrl()
+            'thumbnail' => $this->getFileUrl(),
+            'children' => CategoryResource::collection($this->children),
         ];
     }
 }
