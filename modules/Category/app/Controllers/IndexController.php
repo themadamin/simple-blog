@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function __invoke(): JsonResponse
     {
-        $categories = Category::query()->get();
+        $categories = Category::get()->toTree();
 
         return $this->resultResponse(CategoryResource::collection($categories));
     }

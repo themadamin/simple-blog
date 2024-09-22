@@ -11,6 +11,6 @@ class ShowController extends Controller
 {
     public function __invoke(Category $category): JsonResponse
     {
-        return $this->resultResponse(CategoryResource::make($category));
+        return $this->resultResponse(CategoryResource::make($category->load('children')));
     }
 }
