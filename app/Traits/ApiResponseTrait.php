@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -14,16 +13,14 @@ trait ApiResponseTrait
     protected function successResponse(string $message = 'ok'): JsonResponse
     {
         return response()->json([
-            'data' => [
                 'success' => true,
                 'message' => $message
-            ],
         ], Response::HTTP_OK);
     }
 
-    protected function resultResponse($response): JsonResource|JsonResponse
+    protected function resultResponse($response): JsonResponse
     {
-        return response()->json(['data' => $response], Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 
     protected function paginationResponse(LengthAwarePaginator $response): JsonResponse {
@@ -34,7 +31,6 @@ trait ApiResponseTrait
                 'per_page' => $response->perPage(),
                 'total' => $response->total(),
             ],
-            'user_type' => $user->user_type ?? null,
             'data' => $response->items(),
         ];
 
@@ -44,10 +40,8 @@ trait ApiResponseTrait
     protected function errorResponse(Throwable $exception, int $statusCode = Response::HTTP_NOT_FOUND): JsonResponse
     {
         return response()->json([
-            'data' => [
                 'success' => false,
                 'message' => $exception,
-            ]
         ], $statusCode);
     }
 

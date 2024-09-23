@@ -1,0 +1,18 @@
+.bg-gradient-primary-to-secondary {
+    background: #1e30f3;
+    background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+}
+
+.title-size {
+    font-size: 3.5em;
+}
+
+.profile {
+    height: 35vw;
+    width: 40vw;
+    border-radius: 5vw;
+    margin: 30px;
+}
+.profile .profile-img {
+    height: 40vw;
+}
