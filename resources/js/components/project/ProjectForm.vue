@@ -7,9 +7,12 @@
                     <div class="card shadow-lg card-registration">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-2 pb-2 pb-md-0 mb-md-5">
-                                 {{formTitle()}}Category
+                                 {{formTitle()}} Project
                             </h3>
                             <DynamicForm :schema="formSchema" :submit-text="formTitle()" @onSubmit="handleSubmit">
+                                <template v-slot:selection>
+                                    <CategorySelect :categories="categories" @on-select="selectedCategory"/>
+                                </template>
                                 <template v-slot:delete>
                                     <button class="btn btn-danger" @click="deleteProject(this.projectData.id)">
                                         Delete
@@ -27,9 +30,10 @@
 import {mapActions} from "vuex";
 import DynamicForm from "@/components/DynamicForm.vue";
 import "&/Projects/ProjectForm.scss";
+import CategorySelect from "@/components/category/Select.vue"
 import * as Yup from "yup";
 export default {
-    components: {DynamicForm},
+    components: {DynamicForm, CategorySelect},
     props: {
         projectData: {
             type: Object,
@@ -68,23 +72,19 @@ export default {
                         as: 'input',
                         type: 'file',
                     },
-                    {
-                        label: 'Categories',
-                        name: 'category_id',
-                        as: 'select',
-                        options: this.categories,
-                        rules: Yup.number().required()
-                    }
                 ]
-            }
+            },
+            category: null
         };
     },
     methods: {
         ...mapActions('project', ['create', 'update', 'delete']),
 
         handleSubmit(data) {
+            if (this.category === null) return;
+
             const formData = new FormData();
-                formData.append('category_id', data.category_id);
+                formData.append('category_id', this.category);
                 formData.append('title', data.title);
                 formData.append('body', data.body);
 
@@ -115,8 +115,13 @@ export default {
             this.$emit('closeForm');
             this.$router.push({name: 'projects.index'})
         },
+
         formTitle() {
             return this.isUpdate ? 'Update' : 'Create';
+        },
+
+        selectedCategory(id){
+            this.category = id;
         }
     },
 }
