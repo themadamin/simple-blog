@@ -3,21 +3,33 @@
 namespace Modules\User\Constants;
 
 class StatusConstants {
-    const WORKING = 1;
 
-    const BREAK = 2;
+    const AT_OFFICE = 1;
 
-    const LEFT = 3;
+    const WORKING = 2;
 
-    const ONLINE = 4;
+    const BREAK = 3;
 
-    const ABSENT = 5;
+    const LEFT = 4;
 
     const TYPES = [
+        self::AT_OFFICE,
         self::WORKING,
         self::BREAK,
         self::LEFT,
-        self::ONLINE,
-        self::ABSENT,
     ];
+
+    /**
+     * @throws \Exception
+     */
+    public static function getStatusName(int $status): string
+    {
+        return match ($status){
+            self::AT_OFFICE => 'Office',
+            self::WORKING => 'Working',
+            self::BREAK => 'Break',
+            self::LEFT => 'Left',
+            default => throw new \Exception('Unexpected match value'),
+        };
+    }
 }

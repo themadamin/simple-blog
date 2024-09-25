@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "887096f59ad34be4172e4c682deb20df",
+    "content-hash": "7629397d8a4798b2b83fed00f0dc9272",
     "packages": [
         {
             "name": "archtechx/enums",
@@ -1572,6 +1572,68 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "iben12/laravel-statable",
+            "version": "v1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iben12/laravel-statable.git",
+                "reference": "324aafb2c5239ac087033fbc4a50329cbd424aee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iben12/laravel-statable/zipball/324aafb2c5239ac087033fbc4a50329cbd424aee",
+                "reference": "324aafb2c5239ac087033fbc4a50329cbd424aee",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0",
+                "sebdesign/laravel-state-machine": "^3.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2.3",
+                "orchestra/testbench": "^5.19.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Iben\\Statable\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Iben\\Statable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bence Ivady",
+                    "email": "iben@iben.hu",
+                    "homepage": "http://github.com/iben12",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Statable trait for Laravel Eloquent models",
+            "homepage": "http://github.com/iben12/laravel-statable",
+            "keywords": [
+                "event",
+                "laravel",
+                "state",
+                "statemachine"
+            ],
+            "support": {
+                "issues": "https://github.com/iben12/laravel-statable/issues",
+                "source": "https://github.com/iben12/laravel-statable/tree/v1.5.1"
+            },
+            "time": "2021-07-15T21:15:30+00:00"
         },
         {
             "name": "kalnoy/nestedset",

@@ -1,3 +1,4 @@
+import axios from '@/axios.js';
 
 const url = '/projects';
 export default {
