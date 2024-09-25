@@ -7,8 +7,6 @@ use Modules\Category\Database\seeders\CategorySeeder;
 use Modules\Project\Database\Seeders\ProjectSeeder;
 use Modules\User\Database\Seeders\UserSeeder;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 class DatabaseSeeder extends Seeder
 {
     /**

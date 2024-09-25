@@ -4,6 +4,7 @@ namespace Modules\User\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\User\Constants\StatusConstants;
 
 class UserResource extends JsonResource
 {
@@ -11,6 +12,7 @@ class UserResource extends JsonResource
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
+     * @throws \Exception
      */
     public function toArray(Request $request): array
     {
@@ -18,7 +20,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'verified' => $this->email_verified_at
+            'status' => StatusConstants::getStatusName($this->status)
         ];
     }
 }

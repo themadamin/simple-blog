@@ -2,6 +2,7 @@
 
 namespace Modules\User\Models;
 
+use Iben\Statable\Statable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,13 @@ use Modules\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, Statable;
+
+    protected function getGraph(): string
+    {
+        return  'user';
+    }
+
 
     protected static function newFactory(): UserFactory
     {
@@ -25,6 +32,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'status',
         'password',
     ];
 
