@@ -20,7 +20,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'status' => StatusConstants::getStatusName($this->status)
+            'status' => StatusConstants::getStatusName($this->status),
+            'is_admin' => $this->whenHas('is_admin')
         ];
     }
 }

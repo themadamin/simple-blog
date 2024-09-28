@@ -4,26 +4,30 @@ namespace Modules\User\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
-use Modules\User\Constants\StatusConstants;
-use Modules\User\Models\User;
+use Modules\User\Actions\CreateUserAction;
+use Modules\User\Actions\GenerateTokenAction;
+use Modules\User\Constants\RolesEnum;
 use Modules\User\Requests\Auth\RegistrationRequest;
+use Modules\User\Resources\UserResource;
 
 class RegisterController extends Controller
 {
+    public function __construct(
+        protected GenerateTokenAction $generateTokenAction,
+        protected CreateUserAction $createUserAction
+    )
+    {}
+
     public function __invoke(RegistrationRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
-        $user = new User;
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->status = StatusConstants::LEFT;
-        $user->password = Hash::make($validated['password']);
-        $user->save();
+        $user = $this->createUserAction->execute($validated);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->generateTokenAction->execute($user);
 
-        return $this->resultResponse(['user' => $user, 'token' => $token]);
+        $user['is_admin'] = $user->hasRole(RolesEnum::ADMIN->value);
+
+        return $this->resultResponse(['user' => UserResource::make($user), 'token' => $token]);
     }
 }

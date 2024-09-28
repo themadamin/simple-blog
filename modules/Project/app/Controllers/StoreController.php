@@ -4,27 +4,25 @@ namespace Modules\Project\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Modules\Project\Models\Project;
+use Modules\Project\Actions\CreateProjectAction;
 use Modules\Project\Requests\ProjectRequest;
-use Modules\Project\Resources\ProjectResource;
+use Modules\User\Actions\ChangeUserRoleAction;
 
 class StoreController extends Controller
 {
+    public function __construct(
+        protected CreateProjectAction $createProjectAction,
+        protected ChangeUserRoleAction $changeUserRoleAction
+    )
+    {}
     public function __invoke(ProjectRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
-        $project = Project::create([
-            'category_id' => $validated['category_id'],
-            'body' => $validated['body'],
-            'title' => $validated['title'],
-            'published_at' => $validated['published_at'] ?? now(),
-        ]);
+        $this->createProjectAction->execute($validated, $request->file('thumbnail'));
 
-        if ($request->hasFile('thumbnail')) {
-            $project->uploadFile($request->file('thumbnail'))->toMediaCollection('project');
-        }
+        $this->changeUserRoleAction->execute();
 
-        return $this->resultResponse(ProjectResource::make($project));
+        return $this->successResponse("Project successfully created");
     }
 }

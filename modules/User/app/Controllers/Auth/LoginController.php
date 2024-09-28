@@ -6,11 +6,19 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Hash;
 use Illuminate\Http\JsonResponse;
+use Modules\User\Actions\GenerateTokenAction;
+use Modules\User\Constants\RolesEnum;
 use Modules\User\Models\User;
 use Modules\User\Requests\Auth\LoginRequest;
+use Modules\User\Resources\UserResource;
 
 class LoginController extends Controller
 {
+
+    public function __construct(
+        protected GenerateTokenAction $generateTokenAction
+    )
+    {}
     /**
      * @throws Exception
      */
@@ -27,8 +35,10 @@ class LoginController extends Controller
             throw new Exception('Wrong password');
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $this->generateTokenAction->execute($user);
 
-        return $this->resultResponse(['user' => $user, 'token' => $token]);
+        $user['is_admin'] = $user->hasRole(RolesEnum::ADMIN->value);
+
+        return $this->resultResponse(['user' => UserResource::make($user), 'token' => $token]);
     }
 }

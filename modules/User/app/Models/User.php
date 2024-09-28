@@ -4,14 +4,17 @@ namespace Modules\User\Models;
 
 use Iben\Statable\Statable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Project\Models\Project;
 use Modules\User\Database\Factories\UserFactory;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, Statable;
+    use HasFactory, Notifiable, HasApiTokens, Statable, HasRoles;
 
     protected function getGraph(): string
     {
@@ -57,5 +60,10 @@ class User extends Authenticatable
             'email_verified_at' => 'boolean',
             'password' => 'hashed',
         ];
+    }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
     }
 }

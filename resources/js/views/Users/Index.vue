@@ -50,7 +50,6 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import UserForm from "@/components/user/UserForm.vue";
-import data from "bootstrap/js/src/dom/data.js";
 
 export default {
     components: {UserForm},
@@ -103,6 +102,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-
-</style>

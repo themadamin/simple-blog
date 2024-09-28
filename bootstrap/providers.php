@@ -9,4 +9,5 @@ return [
     ProjectServiceProvider::class,
     CategoryServiceProvider::class,
     UserServiceProvider::class,
+    Spatie\Permission\PermissionServiceProvider::class,
 ];
