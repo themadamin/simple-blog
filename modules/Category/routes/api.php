@@ -6,12 +6,16 @@ use Modules\Category\Controllers\IndexController;
 use Modules\Category\Controllers\ShowController;
 use Modules\Category\Controllers\StoreController;
 use Modules\Category\Controllers\UpdateController;
+use Modules\User\Middleware\EditorMiddleware;
 
 Route::middleware('api')->prefix('api')->group(function () {
     Route::middleware('auth:sanctum')->group(function (){
-        Route::post('/categories', StoreController::class);
-        Route::put('/categories/{category}', UpdateController::class);
-        Route::delete('/categories/{category}', DeleteController::class);
+
+        Route::middleware(EditorMiddleware::class)->group(function (){
+            Route::post('/categories', StoreController::class);
+            Route::put('/categories/{category}', UpdateController::class);
+            Route::delete('/categories/{category}', DeleteController::class);
+        });
     });
 
     Route::middleware('guest')->group(function (){

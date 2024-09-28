@@ -4,6 +4,7 @@ export default {
     state: {
         isAuthenticated: false,
         user: null,
+        admin: false,
         token: null,
         form: {
             name: null,
@@ -17,10 +18,13 @@ export default {
             state.isAuthenticated = payload;
         },
         setUser(state, payload){
-            state.user = payload
+            state.user = payload;
         },
         setToken(state, payload){
-            state.token = payload
+            state.token = payload;
+        },
+        setAdmin(state, payload){
+          state.admin = payload;
         },
         setFormField(state, { field, value }) {
             state.form[field] = value;
@@ -37,6 +41,7 @@ export default {
                     commit('setAuthenticated', true);
                     commit('setUser', user);
                     commit('setToken', token);
+                    commit('setAdmin', user.is_admin)
 
                     localStorage.setItem('authToken', token);
 
@@ -54,6 +59,7 @@ export default {
                     commit("setAuthenticated", false);
                     commit("setUser", null);
                     commit("setToken", null);
+                    commit("setAdmin", null);
 
                     localStorage.removeItem('authToken');
                     delete axios.defaults.headers.common['Authorization'];
@@ -72,6 +78,7 @@ export default {
                     commit("setToken", token);
                     commit("setAuthenticated", true);
                     commit("setUser", user);
+                    commit('setAdmin', user.is_admin)
 
                     localStorage.setItem('authToken', token);
 

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->string('title');
             $table->longText('body');
             $table->string('thumbnail')->nullable();

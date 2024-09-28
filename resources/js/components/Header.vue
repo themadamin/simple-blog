@@ -9,7 +9,7 @@
                     <RouterLink :to="{name: 'home'}" class="nav-link">Home</RouterLink>
                     <RouterLink :to="{name: 'categories.index'}" class="nav-link">Categories</RouterLink>
                     <RouterLink :to="{name: 'projects.index'}" class="nav-link">Projects</RouterLink>
-                    <RouterLink :to="{name: 'users.index'}" class="nav-link">Users</RouterLink>
+                    <RouterLink :to="{name: 'users.index'}" v-if="this.admin" class="nav-link">Users</RouterLink>
                     <RouterLink :to="{name: 'auth'}" v-if="!this.isAuthenticated" class="px-2 fs-6 text-light bg-primary rounded-1">Login</RouterLink>
                     <button v-if="this.isAuthenticated" @click="logoutUser" class="px-2 fs-6 text-light bg-primary rounded-1 border-0">Logout</button>
                 </div>
@@ -31,7 +31,7 @@
             }
         },
         computed: {
-            ...mapState('auth', ['isAuthenticated']),
+            ...mapState('auth', ['isAuthenticated', 'admin']),
         },
     }
 </script>
