@@ -16,6 +16,6 @@ Route::middleware('api')->prefix('api')->group(function () {
 
     Route::middleware('guest')->group(function (){
         Route::get('/categories', IndexController::class);
-        ROute::get('/categories/{category}', ShowController::class);
+        Route::get('/categories/{category}', ShowController::class);
     });
 });
